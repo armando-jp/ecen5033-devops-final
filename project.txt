@@ -1,0 +1,13 @@
+Project Guidance:
+* Can be any project of your choosing.
+* Can be done solo or in groups of 2.
+* Presentations will be after fall break
+* 1/2 half class for each individual/team.
+* Writeups and zip of all material due date/time of final exam (which, we won't have a final exam).
+
+Either
+* Demonstrate a more complex application (e.g., multiple microservices) with a full, end-to-end lifecycle.  i.e., source code in github, changes trigger upgrades, fully monitored, making changes, etc.  (some of this we didn't cover).  Expectation is a demo of the application and lifecycle in class.  
+
+* Create a presentation and tutorial on something we didn't cover in class.  This could be a tool, some capability of K8s we didn't cover, or possibly something else.
+
+* Propose your own project (would not suggest this unless really clear idea already)

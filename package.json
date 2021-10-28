@@ -1,0 +1,23 @@
+{
+  "name": "ecen5033-devops-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armando-jp/ecen5033-devops-final.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/armando-jp/ecen5033-devops-final/issues"
+  },
+  "homepage": "https://github.com/armando-jp/ecen5033-devops-final#readme",
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.0",
+    "express": "^4.17.1"
+  }
+}
