@@ -7,4 +7,4 @@ before_install:
   - docker build -t armandojp/ecen5033-devops-final -f Dockerfile.dev .
 
 script:
-- docker run -e CI=true armandojp/ecen5033-devops-final npm run test
+  - docker run -e CI=true armandojp/ecen5033-devops-final npm run test
