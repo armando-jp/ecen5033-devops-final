@@ -2,7 +2,27 @@ version: '3'
 services:
   web:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile
     ports: 
       - '80:80'
+    depends_on:
+      - db
+      - mosquitto
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  mosquitto:
+    # Use root/example as user/password credentials for db
+    image: eclipse-mosquitto
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    volumes:
+      - ./mqtt_broker/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  
