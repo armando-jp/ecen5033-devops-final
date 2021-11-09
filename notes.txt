@@ -1,1 +1,16 @@
-1. Run 
+### Setting up deployment on local network ###
+
+1. docker run -d -p 27017:27017 --name some-mongo-container     -e MONGO_INITDB_ROOT_USERNAME=mongoadmin     -e MONGO_INITDB_ROOT_PASSWORD=secret     mongo:5.0.3
+2. docker run --name mosquitto_broker -it -p 1883:1883 -p 9001:9001 -v ${pwd}/mosquitto/mosquitto.conf:/mosquittonfig/mosquitto.conf eclipse-mosquitto
+3. nodemon index.js (from server directory)
+4. Send MQTT msg from terminal: mqtt pub -t 'esp32_location' -h 'localhost' -m '{"lat":100,"lon":20,"device_id":50}'
+
+
+
+### Setting up deployment on cloud ###
+
+
+
+
+### Setting Up ESP32-S2-Saola-1 ###
+* need to install 

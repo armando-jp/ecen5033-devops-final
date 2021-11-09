@@ -1,40 +1,72 @@
 const express = require("express");
-const { Server } = require("http");
-const https = require("https");
-
+var ejs = require('ejs');
+var mongodbHandler = require('./mongodb_handler');
 var mqttHandler = require('./mqtt_handler');
 
-const app = express();
-app.use(express.static(__dirname));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
 
+// create mongodb handler instance
+// connect to database
+var mongoClient = new mongodbHandler();
+mongoClient.connect();
+mongoClient.insert();
+
+// create mqtt handler instance
+// connect to MQTT broker
 var mqttClient = new mqttHandler();
 mqttClient.connect();
 
-// Routes
-app.post("/send-mqtt", function(req, res) {
-    mqttClient.sendMessage(req.body.message);
-    res.status(200).send("Message sent to mqtt");
+// create express app
+const app = express();
+
+// set view engine
+app.set("view engine", "ejs");
+
+// *** describe what these lines are doing ***
+// app.use(express.static(__dirname));
+
+// parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: true }))
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
+// When a POST request is made to '/coordinates' via MQTT 
+// save the latitude and longitude to variables, log to console,
+// then store values in database.
+app.post("/coordinates", function(req, res) {
+    res.status(200).send("Message sucessfully sent to mqtt");
+    // mqttClient.sendMessage(req.body.message);
+    
+    device_id = req.body.device_id;
+    lat = req.body.lat;
+    lon = req.body.lon;
+
+    console.log("Received contents: ")
+    console.log("Device ID: " + device_id);
+    console.log("Latitude: " + lat);
+    console.log("Longitude: " + lon);
+
+    // TODO: STORE LAT AND LON TO DATABASE
+    
 })
 
 app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    // res.sendFile(__dirname + "/index.html");
+
+    var data =  mqttClient.getDeviceInfo;
+    console.log(data);
+
+    console.log("lat: " + data.lat);
+    console.log("lon: " + data.lon);
+    console.log("device id: " + data.device_id);
+
+    // update index.ejs template with new values
+    res.render("index", {
+        html_device_id: data.device_id, 
+        html_latitude: data.lat, 
+        html_longitude: data.lon
+    });
 });
 
-// app.get("/aboutme.html", function(req, res) {
-//     res.sendFile(__dirname + "/aboutme.html");
-// });
-
-// app.get("/style.css", function(req, res) {
-//     res.sendFile(__dirname + "/style.css");
-// })
-
-// app.get("/maps.js", function(req, res) {
-//     res.sendFile(__dirname + "/maps.js");
-// })
-
-
 var server = app.listen(80, function() {
-    console.log("Server listening on " + Server.address().port);
+    console.log("Server listening on " + server.address().port);
 })

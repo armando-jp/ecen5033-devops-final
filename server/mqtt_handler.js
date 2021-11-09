@@ -3,9 +3,12 @@ const mqtt = require('mqtt');
 class MqttHandler {
   constructor() {
     this.mqttClient = null;
-    this.host = 'YOUR_HOST';
+    this.host = 'mqtt://localhost';
     this.username = 'YOUR_USER'; // mqtt credentials if these are needed to connect
     this.password = 'YOUR_PASSWORD';
+    this.lat = -1;
+    this.lon = -1;
+    this.device_id = -1;
   }
   
   connect() {
@@ -21,15 +24,24 @@ class MqttHandler {
 
     // Connection callback
     this.mqttClient.on('connect', () => {
-      console.log(`mqtt client connected`);
+      console.log(`MQTT client connected successfully`);
     });
 
     // mqtt subscriptions
-    this.mqttClient.subscribe('mytopic', {qos: 0});
+    this.mqttClient.subscribe('esp32_location', {qos: 0});
 
     // When a message arrives, console.log it
     this.mqttClient.on('message', function (topic, message) {
-      console.log(message.toString());
+      let { lat, lon, device_id } = this;
+      const json = JSON.parse(message);
+
+      console.log("lat: " + json.lat);
+      console.log("lon: " + json.lon);
+      console.log("device id: " + json.device_id);
+      
+      lat = json.lat;
+      lon = json.lon;
+      device_id = json.device_id;
     });
 
     this.mqttClient.on('close', () => {
@@ -41,6 +53,12 @@ class MqttHandler {
   sendMessage(message) {
     this.mqttClient.publish('mytopic', message);
   }
-}
+
+  // returns the most recent mqtt message for topic esp32_location
+  getDeviceInfo() {
+    let { lat, lon, device_id } = this;
+    return lat, lon, device_id;
+  }
+};
 
 module.exports = MqttHandler;

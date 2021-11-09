@@ -4,6 +4,6 @@ COPY package.json .
 RUN npm install
 COPY . . 
 
-FROM nginx
+FROM nginx:alpine
 EXPOSE 80
 COPY --from=builder /app/ /usr/share/nginx/html
