@@ -22,9 +22,19 @@ restarting the containers... not sure why this is the case.
 After that, upon refresh of webpage, we need to update the displayed information
 with the latest database entry.
 1) Use templating to update the contents of the webpage with data from database.
+---> accomplished using EJS templating engine
 2) By default, handle the case where no database data is available/none exists
 (show the user some placeholder data).
+---> Has been handled. Template gets updated with dummy data.
 3) Upon reserving the client the webpage, obtain new database sensor entry and
 display that information.
+---> We did it.
 
 Once this is done, work on Kubernetes deployment to GCloud.
+
+### 11/24/2021
+Currently the application works in the docker-compose context. However, we now 
+need to translate the application to work in a kubernetes context. This means
+we need to refresh on those kubernetes concepts. The goal now is to run the 
+applciation using kubernetes locally. 
+
