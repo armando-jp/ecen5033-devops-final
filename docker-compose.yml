@@ -1,46 +1,33 @@
 version: '3'
 services:
+
   web:
+    container_name: web
     build:
       context: ./server
-      dockerfile: Dockerfile
     ports: 
       - '80:80'
-    depends_on:
-      - db
+    links:
+      - mongo
       - mosquitto
-    networks:
-      project_vlan:
-        ipv4_address: 192.168.1.155
+    depends_on:
+      - mongo
+      - mosquitto
 
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+  mongo:
+    container_name: mongo
+    image: mongo:5.0.4
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-    networks:
-      project_vlan:
-        ipv4_address: 192.168.1.156
+    volumes: 
+      - ./mongodb/data:/data/db
+    ports:
+      - '27017:27017'
 
   mosquitto:
-    # Use root/example as user/password credentials for db
-    image: eclipse-mosquitto
-    ports:
-      - '1883:1883'
-      - '9001:9001'
+    container_name: mosquitto
+    image: eclipse-mosquitto:2.0.14
     volumes:
-      - ./mqtt_broker/mosquitto.conf:/mosquitto/config/mosquitto.conf
-    networks:
-      project_vlan:
-        ipv4_address: 192.168.1.157
-        
-networks:
-  project_vlan:
-    name: project_vlan
-    driver: macvlan
-    driver_opts:
-      parent: eth0
-    ipam:
-      config:
-        - subnet: 192.168.1.0/16
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports: 
+    - '1883:1883'
+    - '9001:9001'

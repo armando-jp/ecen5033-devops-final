@@ -1,16 +1,30 @@
-### Setting up deployment on local network ###
+### 11/23/2021
+Currently we have an express server (writen in JS), an mqtt mosquito broker, and
+and mongo database.
 
-1. docker run -d -p 27017:27017 --name some-mongo-container     -e MONGO_INITDB_ROOT_USERNAME=mongoadmin     -e MONGO_INITDB_ROOT_PASSWORD=secret     mongo:5.0.3
-2. docker run --name mosquitto_broker -it -p 1883:1883 -p 9001:9001 -v ${pwd}/mosquitto/mosquitto.conf:/mosquittonfig/mosquitto.conf eclipse-mosquitto
-3. nodemon index.js (from server directory)
-4. Send MQTT msg from terminal: mqtt pub -t 'esp32_location' -h 'localhost' -m '{"lat":100,"lon":20,"device_id":50}'
+Next up we need to flesh out the functionality of the JS server:
+1) Package node data packet in JSON format.
+---> {"temperature":180,"humidity":50,"message":"Hello Cloud","time":"2021-11-24-13-56-10"}
+2) Test sending data packet to MQTT server.
+---> Completed using MQTT mosquitto command line tool.
+3) Test receiving JSON msg in express server
+---> Was able to receive and parse MQTT message.
+4) Create entry in database with conents from JSON msg.
+5) Verify that the entry is in the database by reading it, then printing it.
+---> This is done by running `docker exec -it mongo sh` after the
+docker-compose up is run (and sucessfully sending MQTT message via shell
+client). Once in the shell, run `mongo`. Once in the mongo shell tool, use `show
+dbs` to view all databases, you should see `Test`. Run `use test`, finally run
+`db.devices.find()` to view all entries. NOTE: For some reason, express server
+will not connecto to mongodb if we don't delete the mongo directory before
+restarting the containers... not sure why this is the case.
 
+After that, upon refresh of webpage, we need to update the displayed information
+with the latest database entry.
+1) Use templating to update the contents of the webpage with data from database.
+2) By default, handle the case where no database data is available/none exists
+(show the user some placeholder data).
+3) Upon reserving the client the webpage, obtain new database sensor entry and
+display that information.
 
-
-### Setting up deployment on cloud ###
-
-
-
-
-### Setting Up ESP32-S2-Saola-1 ###
-* need to install 
+Once this is done, work on Kubernetes deployment to GCloud.
