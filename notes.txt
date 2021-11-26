@@ -38,3 +38,20 @@ need to translate the application to work in a kubernetes context. This means
 we need to refresh on those kubernetes concepts. The goal now is to run the 
 applciation using kubernetes locally. 
 
+1) Build our web server using the following command: `docker build -t
+armandojp/iot-web server .` then push to dockerhub using `docker push
+armandojp/iot-web-server`
+
+
+--->kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
+kubectl delete -f kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
+
+--->kubectl delete service [service_name]
+--->kubectl delete pods [pod_name]
+--->kubectl delete persistentvolumeclaim [volume_name]
+
+
+
+key words: service, deployment, configmap
+
+... I think we need the configmap to setup mosquitto properly,
