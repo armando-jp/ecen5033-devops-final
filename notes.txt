@@ -84,6 +84,7 @@ web: 34.71.145.113
 
 
 
+
 ### The next thing we need to do is document:
 1) the k8s aspect of this project
 --- make a diagram of the kubernetes system
