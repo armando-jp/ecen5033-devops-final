@@ -3,6 +3,9 @@ kind: ConfigMap
 metadata:
   name: mosquitto-config
 data:
+  # Configuration values can be set as key-value properties
+  # Or set as complete file contents (even JSON!)
+  # In this case, I create configuration values from complete file contents. 
   mosquitto.conf: |-
     persistence true
     allow_anonymous true
@@ -10,3 +13,7 @@ data:
     # log_type all
     listener 1883
     # socket_domain ipv4
+
+# A ConfigMap is an API object used to store non-confidential data in key-value
+# pairs. Pods can consume ConfigMaps as environment variables, command-line
+# arguments, or as configuration files in a volume. 

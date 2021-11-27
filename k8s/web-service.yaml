@@ -1,5 +1,6 @@
 apiVersion: v1
 kind: Service
+
 metadata:
   annotations:
     kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert
@@ -8,13 +9,25 @@ metadata:
   labels:
     io.kompose.service: web
   name: web
+
 spec:
-  type: LoadBalancer
-  ports:
+  type: LoadBalancer # [1]
+  ports: # [2]
     - name: "80"
       port: 80
       targetPort: 80
   selector:
-    io.kompose.service: web
+    io.kompose.service: web # [3]
 status:
   loadBalancer: {}
+
+# [1] The service becomes accessible externally through a cloud provider's load
+# balancer functionality. GCP, AWS, Azure, and OpenStack offer this
+# functionality. The cloud provider will create a load balancer, which then
+# automatically routes requests to your Kubernetes Service. 
+
+# [2] port : port number exposed internally in cluster.
+#     targetPort: port that containers are listening on.
+
+# [3] forward requests to pods with label of this value.
+

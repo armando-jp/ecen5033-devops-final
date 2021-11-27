@@ -23,6 +23,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: mongo
+
     spec:
       containers:
         - image: mongo:5.0.4
@@ -34,6 +35,7 @@ spec:
             - mountPath: /data/db
               name: mongo-claim0
       restartPolicy: Always
+      
       volumes:
         - name: mongo-claim0
           persistentVolumeClaim:

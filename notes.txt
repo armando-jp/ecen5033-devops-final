@@ -53,5 +53,42 @@ kubectl delete -f kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web
 
 
 key words: service, deployment, configmap
-
 ... I think we need the configmap to setup mosquitto properly,
+
+
+
+
+### 11/25/2021
+
+OK. SO, the kubernetes application is now running up in the C~L~O~U~D.
+How was this even accomplished?
+
+Created the k8s scripts using 'kompose' (modify docker-compose file first). Then
+need to modify the resulting k8 files (like the mosquitto config file using
+configmap... or adding the loadbalancer type to the web and mosquitto -service files).
+Uploaded my project git repo to github.
+
+
+1) Go to Google Dev Dashboard
+2) Navigate to project 'ecen-5033-devops-project'
+3) Go to 'kubernetes engine'
+4) Connect to terminal/console
+5) Do normal kubernetes stuff
+`kubectl get services`
+`kubectl get pods`
+`kubectl get persistentvolumeclaim`
+`kubectl get svc`
+6) Our current deployment has the following IP addresses:
+mosquitto: 35.188.96.125
+web: 34.71.145.113
+
+
+
+### The next thing we need to do is document:
+1) the k8s aspect of this project
+--- make a diagram of the kubernetes system
+--- comment the kubernetes deployment files
+2) document the flow of the entire project (from development to deployment)
+3) document the google cloud settings/configuration.
+
+### After all of this do the ESP32 programming ... (not a super high priority)
