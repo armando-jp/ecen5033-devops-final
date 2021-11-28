@@ -77,6 +77,7 @@ const app = express();
 app.use(express.static(path.join(__dirname + 'views')));
 // Require static assets from public folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app')));
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 

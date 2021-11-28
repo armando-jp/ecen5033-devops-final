@@ -93,3 +93,23 @@ web: 34.71.145.113
 3) document the google cloud settings/configuration.
 
 ### After all of this do the ESP32 programming ... (not a super high priority)
+
+
+
+
+11/27/2021
+* Environment variables MQTT_URI and MONGO_URI are stored in the kubernetes
+cluster as 'secrets'. The NODE_ENV variable is also set as a secret in the 
+cluster (not ideal, but it works for now).
+
+* Overal deployment to GKE using github actions is working upon commit to
+master.
+
+* Next order of action is pretty-ing the website up to use graphs to plot data.
+* Sending data from ESP32. (done!)
+* Documenting project for presentation. 
+
+
+... 11/27/2021 [several hours later]
+* Need to fixup the website and make it nice and pretty. (plots, navbar)
+* Documentation
