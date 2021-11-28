@@ -36,6 +36,9 @@ spec:
       containers:
         - image: <replace_during_deployment>
           name: web
+          envFrom:
+          - secretRef:
+              name: app-secret
           ports:
             - containerPort: 80
           resources: {}

@@ -2,4 +2,5 @@
 // In this case, they will be pulled from environemnt variables.
 module.exports = {
     mongoURI: process.env.MONGO_URI,
+    mqttURI: process.env.MQTT_URI,
 }
