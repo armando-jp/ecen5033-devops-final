@@ -64,7 +64,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        sudo -u $USER docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
