@@ -34,7 +34,7 @@ spec:
         io.kompose.service: web
     spec:
       containers:
-        - image: armandojp/iot-web-server #obtained from our dockerhub acct
+        - image: <replace_during_deployment>
           name: web
           ports:
             - containerPort: 80

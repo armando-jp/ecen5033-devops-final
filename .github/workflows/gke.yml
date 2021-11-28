@@ -66,6 +66,14 @@ jobs:
       run: |-
         docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
 
+    # Update web-deployment.yaml with new image 
+    - name: Update deployment
+      run: |-
+        cd k8s
+        sed -i \
+        's/<replace_during_deployment>/gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA/g' \
+        web-deployment.yaml
+
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
