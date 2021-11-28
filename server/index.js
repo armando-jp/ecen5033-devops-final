@@ -5,9 +5,9 @@ const ejs = require('ejs');
 const path = require('path');
 const keys = require('./config/keys');
 require('./models/device');
-
 const Device = mongoose.model('device');
 let data = null;
+
 
 // Connect to mongoose database
 mongoose.connect(keys.mongoURI)
@@ -83,7 +83,8 @@ app.set('view engine', 'ejs');
 
 app.get("/", function(req, res) {
     // res.sendFile(__dirname + "/index.html");
-    if (!(data === undefined || data.length == 0)) {
+    
+    if (!(data === null || data.length == 0)) {
         
         let newest_entry = data[0]; 
         let deviceTemp = newest_entry.deviceTemp;
