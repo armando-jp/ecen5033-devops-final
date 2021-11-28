@@ -39,6 +39,8 @@ spec:
           envFrom:
           - secretRef:
               name: app-secret
+          - secretRef:
+              name: app-env
           ports:
             - containerPort: 80
           resources: {}
