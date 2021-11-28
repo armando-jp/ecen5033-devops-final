@@ -69,6 +69,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        cd ../k8s
+        cd ..
+        cd k8s
         kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
         kubectl get services -o wide
