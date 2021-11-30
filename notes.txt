@@ -4,7 +4,7 @@ and mongo database.
 
 Next up we need to flesh out the functionality of the JS server:
 1) Package node data packet in JSON format.
----> {"temperature":180,"humidity":50,"message":"Hello Cloud","time":"2021-11-24-13-56-10"}
+---> mqtt pub -t device -m '{"temperature":180,"humidity":50,"message":"Hello Armando","time":"2021-11-24-13-56-10"}'
 2) Test sending data packet to MQTT server.
 ---> Completed using MQTT mosquitto command line tool.
 3) Test receiving JSON msg in express server
@@ -44,7 +44,7 @@ armandojp/iot-web-server`
 
 
 --->kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
-kubectl delete -f kubectl apply -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
+--->kubectl delete -f mongo-service.yaml,mosquitto-service.yaml,web-service.yaml,mongo-deployment.yaml,mongo-claim0-persistentvolumeclaim.yaml,mosquitto-deployment.yaml,web-deployment.yaml,mosquitto-configmap.yaml
 
 --->kubectl delete service [service_name]
 --->kubectl delete pods [pod_name]
@@ -113,3 +113,7 @@ master.
 ... 11/27/2021 [several hours later]
 * Need to fixup the website and make it nice and pretty. (plots, navbar)
 * Documentation
+
+... 11/30/2021
+* Done with website.
+* Focus on finishing presentation.
