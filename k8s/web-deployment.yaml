@@ -12,7 +12,7 @@ metadata:
 
 spec:
   # How many copies of each pod do we want?
-  replicas: 3
+  replicas: 1
   # Which pods are managed by this deployment?
   selector:
     matchLabels:
