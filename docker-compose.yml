@@ -4,8 +4,8 @@ services:
   web:
     container_name: web
     image: armandojp/iot-web-server
-    # build:
-    #   context: ./server
+    build:
+      context: ./server
     restart: always
     ports: 
       - '80:80'
@@ -21,15 +21,15 @@ services:
     image: mongo:5.0.4
     restart: always
     volumes: 
-      - mongodb/data:/data/db
+      - ./mongodb/data:/data/db
     ports:
       - '27017:27017'
 
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:2.0.14
-    # volumes:
-    #   - mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     ports: 
     - '1883:1883'
     - '9001:9001'
